@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_payroll_inherit_form_view" model="ir.ui.view">
+            <field name="name">hr.payslip.inherit.form.view</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title']" position="inside">
+                    <label for="emp_id" class="oe_edit_only" attrs="{'invisible':[('employee_id','=',False)]}"/>
+                    <h1>
+                        <field name="emp_id" placeholder="Employee ID" attrs="{'invisible':[('employee_id','=',False)]}"/>
+                    </h1>
+                </xpath>
+                <xpath expr="//notebook" position="before">
+                    <group>
+                            <field name="final_net" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="final_gross" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_payroll_inherit_tree_view" model="ir.ui.view">
+            <field name="name">hr.payslip.inherit.tree.view</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='employee_id']" position="after">
+                        <field name="emp_id"/>
+                </xpath>
+                <xpath expr="//field[@name='date_to']" position="after">
+                        <field name="final_net" sum="Quantity"/>
+                        <field name="final_gross" sum="Quantity"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

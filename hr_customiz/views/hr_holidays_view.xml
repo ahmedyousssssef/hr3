@@ -1,0 +1,36 @@
+<openerp>
+    <data>
+        <record id="hr_holidays_form_view_inherit" model="ir.ui.view">
+            <field name="name">hr.holidays.form.view_inherit</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_modifications_real_estate.isky_hr_holidays_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='second_validate']" position="replace">
+                    <button string="Validate" name="second_validate" states="validate1" type="workflow" groups="hr_customiz.group_hr_double_approve" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="employee_position"/>
+                    <field name="emp_id"/>
+                </xpath>
+                <xpath expr="//field[@name='personal_charge']" position="replace">
+                    <field name="personal_charge" string="Contact During The Leave" attrs="{'invisible':[('type','!=','remove')]}"
+                           domain="[('id', '!=', employee_id)]"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="hr_holidays_tree_view_inherit" model="ir.ui.view">
+            <field name="name">hr.holidays.tree.view_inherit</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.view_holiday"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="emp_id"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</openerp>
